@@ -1,0 +1,43 @@
+#+TITLE: mcm-oss
+#+AUTHOR: Khinshan Khan
+#+STARTIP: overview
+
+A simple and basic operating system simulation.
+
+* Table of Contents :toc:
+- [[#prelude][Prelude]]
+- [[#install][Install]]
+- [[#run][Run]]
+  - [[#interactively][Interactively]]
+  - [[#tests][Tests]]
+- [[#license][License]]
+
+* Prelude
+
+  The name's origin is quite simple. I chose =create a new repository= and GitHub
+  suggested =minature-computing-machine=, which sounded good for this project.
+  However, I wanted to include "operating system simulation" in the title and it
+  got unwieldy. Hence:
+  *m* inature *c* omputing *m* achine *o* perating *s* ystem *s* imulation => mcm-oss.
+
+  This was originally meant to be a small college project. I had the choice of
+  languages like C++, C, Java, etcetera. I chose Python because I hadn't written
+  it in a couple of months and because I wanted to explore python project
+  structures along with upm and poetry... not that this project has too many
+  dependencies. Just a learning exercise in the end I suppose :man_shrugging:.
+
+* Install
+
+  WIP :shipit:
+
+* Run
+
+  WIP :shipit:
+
+** Interactively
+
+** Tests
+
+* License
+
+  This project uses an MIT license, which can be viewed [[file:LICENSE.org][here]].
