@@ -3,10 +3,10 @@ Khinshan Khan - __main__.py.
 
 This module is the  heart and entry-point of the mcm-oss program.
 """
-import cli
+from mcm_oss import cli
 
 
-def main():
+def main() -> None:
     """Execute helpful information about program and then start interactive cli."""
     print('''
 Welcome to mcm-oss: A simple and basic operating system simulation.
@@ -27,11 +27,12 @@ The way this cli utility handles signals:
     EOF     -  ^D  -  Ctrl+d  -  exits program
     ''')
     ram_max, disks_max = cli.initialize()
+    # TODO: add more initialization settings
     print("Initialized simulation. You may now begin interacting with it.")
     while True:
-        context, arguments = cli.interactive(ram_max, disks_max)
+        context, arguments = cli.interactive()
         if not context:
-            print(f'mcm-oss: {" ".join(arguments)}: command not found')
+            print(f'mcm-oss: {arguments}: command not found')
         else:
             print(context, arguments)
 
