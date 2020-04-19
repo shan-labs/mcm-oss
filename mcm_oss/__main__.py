@@ -23,8 +23,8 @@ Some commands implemented:
   S  m       shows state of the memory
 
 The way this cli utility handles signals:
-    KeyboardInterrupt - Ctrl+c - exits current command
-    EOFError          - Ctrl+d - exits program
+    SIGINT  -  ^C  -  Ctrl+c  -  exits current command
+    EOF     -  ^D  -  Ctrl+d  -  exits program
     ''')
     ram_max, disks_max = cli.initialize()
     print("Initialized simulation. You may now begin interacting with it.")

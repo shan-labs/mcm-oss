@@ -7,6 +7,7 @@ import sys
 
 
 def input_monad(f):
+    """Listen for user events and acts accordingly, or else returns value of given function."""
     result = None
     while True:
         try:
@@ -22,17 +23,15 @@ def input_monad(f):
             return result
 
 
-def parse_input(user_input):
-    return user_input.split()
-
-
 def prompt(message=None):
+    """Print optional message and wait for user input."""
     if message:
         print(message)
     return input(">> ").strip()
 
 
-def command_function(command):
+def verify_command(command):
+    """Verify a given command is legal."""
     command_length = len(command)
     if command_length > 0:
         if command_length == 1:
@@ -45,26 +44,28 @@ def command_function(command):
     return (False, command)
 
 
-def input_num_raw(message):
-    while True:
-        user_input = prompt(message)
-        if user_input.isnumeric():
-            return user_input
-        print("Invalid value: This value can only be a numeric like `55`")
+def interactive(ram_max, disks_max):
+    """Get the next command user enters and pass it up to main."""
+    user_input = input_monad(prompt)
+    parsed_input = user_input.split()
+    context, arguments = verify_command(parsed_input)
+    return (context, arguments)
 
 
 def input_num(message):
-    return pipeline(lambda: input_num_raw(message))
+    """Get an input which is ensured to be a numeric."""
+    def input_num_raw(message):
+        """Body function of `input_num`, to ensure encapsulation in `input_monad`."""
+        while True:
+            user_input = prompt(message)
+            if user_input.isnumeric():
+                return user_input
+            print("Invalid value: This value can only be a numeric like `55`")
+    return input_monad(lambda: input_num_raw(message))
 
 
 def initialize():
+    """Get necessary values for simulation."""
     ram_max = input_num("How much RAM is on the simulated computer? (bytes)")
     disks_max = input_num("How many hard disks on the simulated computer?")
     return (ram_max, disks_max)
-
-
-def interactive(ram_max, disks_max):
-    user_input = pipeline(prompt)
-    parsed_input = parse_input(user_input)
-    context, arguments = command_function(parsed_input)
-    return (context, arguments)
