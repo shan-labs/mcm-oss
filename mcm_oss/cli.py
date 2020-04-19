@@ -1,3 +1,8 @@
+"""
+Khinshan Khan - cli.py.
+
+This module contains all command line interaction with user.
+"""
 import sys
 
 
