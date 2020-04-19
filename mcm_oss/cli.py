@@ -1,13 +1,24 @@
 import sys
 
 
+def pipeline(f):
+    result = None
+    while True:
+        try:
+            result = f()
+        except EOFError:
+            print("\nExiting mcm-oss.\nHave a nice day!")
+            sys.exit()
+        except KeyboardInterrupt:
+            print()
+            continue
+
+        if result:
+            return result
+
+
 def parse_input(user_input):
     return user_input.split()
-
-
-def verify_command(command):
-    print(f'mcm-oss: {command}: command not found')
-    pass
 
 
 def prompt(message=None):
@@ -16,26 +27,45 @@ def prompt(message=None):
     return input(">> ").strip()
 
 
-def input_num(message):
+def command_function(command):
+    command_length = len(command)
+    if command_length > 0:
+        if command_length == 1:
+            if command[0] in ["Q", "t"]:
+                print("process")
+                return
+        if command_length == 2:
+            if command[0] == 'S' and command[1] in ["r", "i", "m"]:
+                print("show")
+                return
+            if command[0] in ["A", "Ar", "d", "D"] and command[1].isnumeric():
+                print("num arg")
+                return
+    print(f'mcm-oss: {" ".join(command)}: command not found')
+    return False
+
+
+def input_num_raw(message):
     while True:
         user_input = prompt(message)
         if user_input.isnumeric():
             return user_input
-        else:
-            print("Invalid value: This value can only be a numeric like `55`")
+        print("Invalid value: This value can only be a numeric like `55`")
+
+
+def input_num(message):
+    return pipeline(lambda: input_num_raw(message))
+
+
+def program(ram_max, disks_max):
+    user_input = prompt()
+    parsed_input = parse_input(user_input)
+    context = command_function(parsed_input)
+    print(context)
+    pass
 
 
 def interactive():
     ram_max = input_num("How much RAM is on the simulated computer? (bytes)")
     disks_max = input_num("How many hard disks on the simulated computer?")
-    print(ram_max, disks_max)
-    while True:
-        try:
-            user_input = prompt()
-            print(parse_input(user_input))
-        except EOFError:
-            print("\nExiting mcm-oss.\nHave a nice day!")
-            sys.exit()
-        except KeyboardInterrupt:
-            print()
-            pass
+    pipeline(lambda: program(ram_max, disks_max))
