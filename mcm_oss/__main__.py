@@ -26,7 +26,14 @@ The way this cli utility handles signals:
     KeyboardInterrupt - Ctrl+c - exits current command
     EOFError          - Ctrl+d - exits program
     ''')
-    cli.interactive()
+    ram_max, disks_max = cli.initialize()
+    print("Initialized simulation. You may now begin interacting with it.")
+    while True:
+        context, arguments = cli.interactive(ram_max, disks_max)
+        if not context:
+            print(f'mcm-oss: {" ".join(arguments)}: command not found')
+        else:
+            print(context, arguments)
 
 
 if __name__ == '__main__':
