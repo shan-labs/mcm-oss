@@ -1,2 +1,26 @@
 [flake8]
+# Provide a comma-separated list of glob patterns to exclude from checks.
+exclude = .git, *cache*
+
+# Set the maximum length that any line (with some exceptions) may be.
 max-line-length=100
+
+# Set the maximum allowed McCabe complexity value for a block of code.
+max-complexity = 10
+
+# Enable PyFlakes syntax checking of doctests in docstrings.
+doctests = True
+
+# Print the total number of errors. Useful for no errors.
+count = True
+
+# Provide a comma-separate list of glob patterns to include for checks.
+filename = *.py
+
+# Redirect all output to the specified file. Turn off format when using this.
+# output-file = .flake8.log
+# Also print output to stdout if output-file has been configured.
+# tee = True
+
+# Leverages flake8-colors for pretty ansi formatting.
+format = ${cyan}%(path)s${reset}:${yellow_bold}%(row)d${reset}:${green_bold}%(col)d${reset}: ${red_bold}%(code)s${reset} %(text)s
