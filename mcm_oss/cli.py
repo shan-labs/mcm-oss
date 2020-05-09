@@ -63,6 +63,6 @@ def input_num(message):
 
 def initialize():
     """Get necessary values for simulation."""
-    ram_max = input_num("How much RAM is on the simulated computer? (bytes)")
+    ram_size = input_num("How much RAM is on the simulated computer? (bytes)")
     disks_max = input_num("How many hard disks on the simulated computer?")
-    return (ram_max, disks_max)
+    return (ram_size, disks_max)
