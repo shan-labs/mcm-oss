@@ -39,7 +39,7 @@ def verify_command(command):
                 return (command[0], None)
         if command_length == 2:
             if ((command[0] == 'S' and command[1] in ["r", "i", "m"])
-                    or (command[0] in ["A", "Ar", "d", "D"] and command[1].isnumeric())):
+                    or (command[0] in ["A", "AR", "d", "D"] and command[1].isnumeric())):
                 return (command[0], command[1])
     return (False, " ".join(command))
 
@@ -48,8 +48,8 @@ def interactive():
     """Get the next command user enters and pass it up to main."""
     user_input = input_monad(None)
     parsed_input = user_input.split()
-    context, arguments = verify_command(parsed_input)
-    return (context, arguments)
+    command, arguments = verify_command(parsed_input)
+    return (command, arguments)
 
 
 def input_num(message):

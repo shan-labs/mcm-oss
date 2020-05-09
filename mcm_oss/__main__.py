@@ -32,13 +32,19 @@ The way this cli utility handles signals:
     print("Initialized simulation. You may now begin interacting with it.")
     with oss.OSS(ram_size, disks_max) as OSS:
         while True:
-            context, arguments = cli.interactive()
-            if not context:
+            command, arguments = cli.interactive()
+            if not command:
                 print(f'mcm-oss: {arguments}: command not found')
             else:
-                print(context, arguments)
-                if(context == 'S'):
+                context = command[0].lower()
+                if(context == 'a'): # either 'A' or 'AR'
+                    OSS.process(command, arguments)
+                elif(context == 'd'): # either 'd' or 'D'
+                    OSS.hard_disk(command, arguments)
+                elif(context == 's'): # either S 'r', S 'i', S 'm'
                     OSS.show(arguments)
+                else: # exhaustive, can only be 'Q' or 't'
+                    OSS.time(command)
 
 
 if __name__ == '__main__':
