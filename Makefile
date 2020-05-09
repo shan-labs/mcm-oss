@@ -1,6 +1,8 @@
 PYTHON       = python3
 
-.PHONY: help all run test test-pytest lint-mypy lint-flake8 clean
+.PHONY: default help all run test test-pytest lint-mypy lint-flake8 clean
+
+default: help
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
@@ -10,12 +12,12 @@ help:
 	@echo "  test-pytest  run test cases"
 	@echo "  lint-mypy    run mypy static type checker"
 	@echo "  lint-flake8  run flake8 linter to 'verify pep8, pyflakes and circular complexity'"
-	@echo "  clean        to remove build files"
+	@echo "  clean        to remove cache files"
 
 all: run
 
 run:
-	$(PYTHON) mcm_oss
+	$(PYTHON) -m mcm_oss
 
 test: test-pytest lint-mypy lint-flake8
 
