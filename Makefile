@@ -19,7 +19,7 @@ all: run
 run:
 	$(PYTHON) -m mcm_oss
 
-test: test-pytest lint-mypy lint-flake8
+test: test-pytest lint-flake8
 
 test-pytest:
 	@pytest

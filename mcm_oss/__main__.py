@@ -6,7 +6,7 @@ This module is the  heart and entry-point of the mcm-oss program.
 from mcm_oss import cli
 
 
-def main() -> None:
+def main():
     """Execute helpful information about program and then start interactive cli."""
     print('''
 Welcome to mcm-oss: A simple and basic operating system simulation.

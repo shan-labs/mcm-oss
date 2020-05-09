@@ -3,18 +3,17 @@ Khinshan Khan - cli.py.
 
 This module contains all command line interaction with user.
 """
-from typing import List, Tuple, Optional, Union
 import sys
 
 
-def prompt(message: Optional[str]) -> str:
+def prompt(message):
     """Print optional message and wait for user input."""
     if message:
         print(message)
     return input(">> ").strip()
 
 
-def input_monad(message: Optional[str]) -> str:
+def input_monad(message):
     """Listen for user events and acts accordingly, or else returns given input value ."""
     result = None
     while True:
@@ -31,7 +30,7 @@ def input_monad(message: Optional[str]) -> str:
             return result
 
 
-def verify_command(command: List[str]) -> Tuple[Union[str, bool], Optional[str]]:
+def verify_command(command):
     """Verify a given command is legal."""
     command_length = len(command)
     if command_length > 0:
@@ -45,7 +44,7 @@ def verify_command(command: List[str]) -> Tuple[Union[str, bool], Optional[str]]
     return (False, " ".join(command))
 
 
-def interactive() -> Tuple[Union[str, bool], Optional[str]]:
+def interactive():
     """Get the next command user enters and pass it up to main."""
     user_input = input_monad(None)
     parsed_input = user_input.split()
@@ -53,7 +52,7 @@ def interactive() -> Tuple[Union[str, bool], Optional[str]]:
     return (context, arguments)
 
 
-def input_num(message: str) -> int:
+def input_num(message):
     """Get an input which is ensured to be a numeric."""
     while True:
         user_input = input_monad(message)
@@ -62,7 +61,7 @@ def input_num(message: str) -> int:
         print("Invalid value: This value can only be a numeric like `55`")
 
 
-def initialize() -> Tuple[int, int]:
+def initialize():
     """Get necessary values for simulation."""
     ram_max = input_num("How much RAM is on the simulated computer? (bytes)")
     disks_max = input_num("How many hard disks on the simulated computer?")
