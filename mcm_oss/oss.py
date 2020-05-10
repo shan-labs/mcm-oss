@@ -36,19 +36,22 @@ class OSS:
     def show(self, show_type):
         """TODO: WIP, currently just debug prints"""
         if(show_type == 'r'):
-            print(self._rt_ready_queue)
-            print(self._common_ready_queue)
+            pass
         elif(show_type == 'i'):
             print(self.memory)
         elif(show_type == 'm'):
-            print(self.memory)
+            print("TYPE", "M_START", "M_END", sep='\t')
+            for proc in self._rt_ready_queue:
+                print(proc["type"], proc["start"], proc["end"], sep='\t')
+            for proc in self._common_ready_queue:
+                print(proc["type"], proc["start"], proc["end"], sep='\t')
 
     def time(self, command):
         pass
 
     def _create_pcb(self, command, size):
         """Determine process information using first fit contiguous memory, if possible."""
-        proc_type = "Real-Time" if command == "AR" else "Common"
+        proc_type = "RT" if command == "AR" else "Common"
         # first fit algorithm for memory
 
         # get all (if any) contiguous memory blocks with sufficient size
