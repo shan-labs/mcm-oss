@@ -5,6 +5,7 @@ from collections import deque
 import itertools
 
 from mcm_oss import memory
+from mcm_oss import disk
 
 
 class OSS:
@@ -18,7 +19,7 @@ class OSS:
 
     def __init__(self, ram_max, disks_max):
         self._memory = memory.Memory(ram_max)
-        self._num_of_disks = disks_max
+        self._num_of_disks = disk.Disk(disks_max)
         self._rt_ready_queue = deque()
         self._common_ready_queue = deque()
         self._pid_count = 1
