@@ -54,13 +54,18 @@ class OSS:
                 print(proc["type"], proc["start"], proc["end"], sep='\t')
 
     def time(self, command):
-        pass
+        if(command == 'Q'):
+            if self._rt_ready_queue:
+                self._rt_ready_queue.rotate(-1)
+            elif self._common_ready_queue:
+                self._common_ready_queue.rotate(-1)
+        elif(command == 't'):
+            pass
 
     def _create_pcb(self, command, size):
         """Determine process information using first fit contiguous memory, if possible."""
         proc_type = "RT" if command == "AR" else "Common"
         # first fit algorithm for memory
-
         # get all (if any) contiguous memory blocks with sufficient size
         free_memory = sorted(filter(lambda num: num >= size, self.memory.keys()))
         if(len(free_memory) < 1): # early exit if no contiguous memory blocks are available
