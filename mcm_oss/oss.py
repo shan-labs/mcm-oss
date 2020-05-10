@@ -19,7 +19,7 @@ class OSS:
 
     def __init__(self, ram_max, disks_max):
         self._memory = memory.Memory(ram_max)
-        self._num_of_disks = disk.Disk(disks_max)
+        self._disks = disk.Disk(disks_max)
         self._rt_ready_queue = deque()
         self._common_ready_queue = deque()
         self._pid_count = 1
@@ -35,10 +35,20 @@ class OSS:
 
     def hard_disk(self, command, number):
         if(command == 'd'):
-            pass
+            proc = None
+            if self._rt_ready_queue:
+                proc = self._rt_ready_queue.popleft()
+            elif self._common_ready_queue:
+                proc = self._common_ready_queue.popleft()
+            if proc:
+                self._disks.add_proc(proc, int(number))
         elif(command == 'D'):
-            pass
-        print('hard disk', command, number)
+            proc = self._disks.remove_proc(int(number))
+            if proc:
+                if proc["type"] == "RT":
+                    self._rt_ready_queue.append(proc)
+                else:
+                    self._common_ready_queue.append(proc)
 
     def show(self, show_type):
         """TODO: WIP, currently just debug prints"""
@@ -51,8 +61,8 @@ class OSS:
             for proc in procs:
                 print(proc["pid"], proc["type"], "waiting", sep='\t')
         elif(show_type == 'i'):
-            # TODO: print IO info
-            print(self._memory._memory)
+            print("PID", "DISK", "STATUS", sep='\t')
+            self._disks.snapshot()
         elif(show_type == 'm'):
             print("TYPE", "M_START", "M_END", sep='\t')
             procs = itertools.chain(self._rt_ready_queue, self._common_ready_queue)
