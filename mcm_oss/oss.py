@@ -1,4 +1,5 @@
 from collections import deque
+import itertools
 
 class OSS:
     """An OS mimicker."""
@@ -36,14 +37,20 @@ class OSS:
     def show(self, show_type):
         """TODO: WIP, currently just debug prints"""
         if(show_type == 'r'):
-            pass
+            print("PID", "TYPE", "STATUS", sep='\t')
+            procs = itertools.chain(self._rt_ready_queue, self._common_ready_queue)
+            running = next(procs, None)
+            if running:
+                print(running["pid"], running["type"], "running", sep='\t')
+            for proc in procs:
+                print(proc["pid"], proc["type"], "waiting", sep='\t')
         elif(show_type == 'i'):
+            # TODO: print IO info
             print(self.memory)
         elif(show_type == 'm'):
             print("TYPE", "M_START", "M_END", sep='\t')
-            for proc in self._rt_ready_queue:
-                print(proc["type"], proc["start"], proc["end"], sep='\t')
-            for proc in self._common_ready_queue:
+            procs = itertools.chain(self._rt_ready_queue, self._common_ready_queue)
+            for proc in procs:
                 print(proc["type"], proc["start"], proc["end"], sep='\t')
 
     def time(self, command):
@@ -79,5 +86,6 @@ class OSS:
             self.memory[memory_remainder]["start"].append(start + size)
             self.memory[memory_remainder]["end"].append(memory_remainder_end)
         # pcb for newly created process
-        proc = {"type": proc_type, "start": start, "end": end}
+        proc = {"type": proc_type, "pid": self.pid_count, "start": start, "end": end}
+        self.pid_count += 1
         return proc
