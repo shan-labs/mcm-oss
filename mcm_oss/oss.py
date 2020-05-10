@@ -1,5 +1,5 @@
 """
-Khinshan Khan - cli.py.
+Khinshan Khan - oss.py.
 """
 from collections import deque
 import itertools
@@ -62,12 +62,13 @@ class OSS:
                 print(proc["pid"], proc["type"], "waiting", sep='\t')
         elif(show_type == 'i'):
             print("PID", "DISK", "STATUS", sep='\t')
-            self._disks.snapshot()
+            self._disks.io_snapshot()
         elif(show_type == 'm'):
             print("TYPE", "M_START", "M_END", sep='\t')
             procs = itertools.chain(self._rt_ready_queue, self._common_ready_queue)
             for proc in procs:
                 print(proc["type"], proc["start"], proc["end"], sep='\t')
+            self._disks.memory_snapshot()
 
     def time(self, command):
         if(command == 'Q'):
