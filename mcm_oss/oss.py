@@ -1,5 +1,7 @@
 """
 Khinshan Khan - oss.py.
+
+This module implements a God class for OS simulation.
 """
 from collections import deque
 import itertools
@@ -9,7 +11,7 @@ from mcm_oss import disk
 
 
 class OSS:
-    """An OS mimicker. God class for OS simulation."""
+    """An OS mimicker."""
 
     def __enter__(self):
         return self
@@ -80,7 +82,7 @@ class OSS:
             print("PID", "DISK", "STATUS", sep='\t')
             self._disks.io_snapshot()
         elif(show_type == 'm'):
-            print("PID", "TYPE", "M_START", "M_END", sep='\t')
+            print("PID", "M_START", "M_END", sep='\t')
             procs = itertools.chain(self._rt_ready_queue, self._common_ready_queue)
             for proc in procs:
                 print(proc["pid"], proc["start"], proc["end"], sep='\t')
