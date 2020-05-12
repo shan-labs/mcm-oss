@@ -1,6 +1,7 @@
 #+TITLE: mcm-oss
 #+AUTHOR: Khinshan Khan
 #+STARTIP: overview
+#+OPTIONS: toc:nil
 
 A simple and basic operating system simulation.
 
@@ -11,6 +12,7 @@ A simple and basic operating system simulation.
   - [[#interactively][Interactively]]
 - [[#development][Development]]
 - [[#testing][Testing]]
+- [[#known-bugs][Known Bugs]]
 - [[#license][License]]
 
 * Prelude
@@ -35,19 +37,30 @@ A simple and basic operating system simulation.
 
   Note: it depends on Python 3.6+ per lab machine specifications.
 
+  You can clone the project from [[https://github.com/kkhan01/mcm-oss][here]] if you don't already have the files. After
+  that, =cd= into the project and remain the level the =Makefile= exists. This is
+  due to relative path commands.
+
 * Run
 
-  Use =make= or =make help= to see a list of all make commands. Those should be all you need.
+  Use =make= or =make help= to see a list of all make commands. Those should be all
+  you need.
 
 ** Interactively
 
    To run interactively:
    #+begin_src bash
+
 make run
+
    #+end_src
+
    or
+
    #+begin_src bash
-python -m mcm_oss
+
+python3 -m mcm_oss
+
    #+end_src
 
 * Development
@@ -64,14 +77,39 @@ python -m mcm_oss
 * Testing
 
   To run unit test suit in =test/= directory:
+
   #+begin_src bash
+
 pytest
+
   #+end_src
 
-  To run prewritten scripts in the =scripts/= directory ( a file such as =scripts/[x].txt=):
+  To run prewritten scripts in the =scripts/= directory ( a file such as
+  =scripts/[x].txt=):
+
   #+begin_src bash
+
 make script TEST_FILE=x
+
   #+end_src
+
+  Note: the prewritten tests will output a bit weirdly due to reading in from
+  the redirected stdin. It should display =>>= weirdly, but the conceptual output
+  should be right. This is helpful when just bulk testing, since files end with
+  an EOF.
+
+  The prewritten tests could be made to diff between expected output, but it
+  seems like more work than necessary at the moment.
+
+* Known Bugs
+
+  As every developer says: these aren't bugs, just a list of features that
+  could've been different.
+
+  - Given negative numbers, program outputs invalid command instead of invalid input for command.
+    - This is due to python's =isnumeric= reading negative numbers as false.
+    - The fix would have been to just create a custom =is_numeric= or a wrapper.
+
 
 * License
 
