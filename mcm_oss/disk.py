@@ -26,7 +26,7 @@ class Disk:
     def memory_snapshot(self):
         """Print all processes' memory across all disks."""
         for proc in itertools.chain(*self._disks):
-            print(proc["type"], proc["start"], proc["end"], sep='\t')
+            print(proc["pid"], proc["start"], proc["end"], sep='\t')
 
     def add_proc(self, disk_num, proc):
         """Adds a process to disk."""

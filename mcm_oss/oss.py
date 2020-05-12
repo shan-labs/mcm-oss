@@ -38,7 +38,7 @@ class OSS:
 
     def hard_disk(self, command, number):
         """
-        Moves process from job queue to hard disk or from hard disk to job queue depending on
+        Moves process from ready queue to hard disk or from hard disk to ready queue depending on
         command.
         """
         if(command == 'd'):
@@ -64,7 +64,7 @@ class OSS:
     def show(self, show_type):
         """
         Show various status of the OS simulation:
-        r: job queue
+        r: ready queue
         i: disks
         m: memory
         """
@@ -80,10 +80,10 @@ class OSS:
             print("PID", "DISK", "STATUS", sep='\t')
             self._disks.io_snapshot()
         elif(show_type == 'm'):
-            print("TYPE", "M_START", "M_END", sep='\t')
+            print("PID", "TYPE", "M_START", "M_END", sep='\t')
             procs = itertools.chain(self._rt_ready_queue, self._common_ready_queue)
             for proc in procs:
-                print(proc["type"], proc["start"], proc["end"], sep='\t')
+                print(proc["pid"], proc["start"], proc["end"], sep='\t')
             self._disks.memory_snapshot()
 
     def time(self, command):
