@@ -9,7 +9,7 @@ from mcm_oss import disk
 
 
 class OSS:
-    """An OS mimicker."""
+    """An OS mimicker. God class for OS simulation."""
 
     def __enter__(self):
         return self
@@ -25,6 +25,9 @@ class OSS:
         self._pid_count = 1
 
     def process(self, command, size):
+        """
+        Create real time or common process of `size' if enough contiguous memory is available.
+        """
         proc = self._create_pcb(command, int(size))
         if proc is None:  # short circuit if bad size
             return
@@ -34,6 +37,10 @@ class OSS:
             self._common_ready_queue.append(proc)
 
     def hard_disk(self, command, number):
+        """
+        Moves process from job queue to hard disk or from hard disk to job queue depending on
+        command.
+        """
         if(command == 'd'):
             proc = None
             if self._rt_ready_queue:
@@ -41,7 +48,9 @@ class OSS:
             elif self._common_ready_queue:
                 proc = self._common_ready_queue.popleft()
             if proc:
-                self._disks.add_proc(proc, int(number))
+                self._disks.add_proc(int(number), proc)
+            else:
+                print("No process to move to disk!")
         elif(command == 'D'):
             proc = self._disks.remove_proc(int(number))
             if proc:
@@ -49,9 +58,16 @@ class OSS:
                     self._rt_ready_queue.append(proc)
                 else:
                     self._common_ready_queue.append(proc)
+            else:
+                print("No process found in disk!")
 
     def show(self, show_type):
-        """TODO: WIP, currently just debug prints"""
+        """
+        Show various status of the OS simulation:
+        r: job queue
+        i: disks
+        m: memory
+        """
         if(show_type == 'r'):
             print("PID", "TYPE", "STATUS", sep='\t')
             procs = itertools.chain(self._rt_ready_queue, self._common_ready_queue)
@@ -71,6 +87,9 @@ class OSS:
             self._disks.memory_snapshot()
 
     def time(self, command):
+        """
+        Will terminate or rotate process since user decided it's time to do so.
+        """
         if(command == 'Q'):
             if self._rt_ready_queue:
                 self._rt_ready_queue.rotate(-1)
@@ -86,13 +105,15 @@ class OSS:
                 self._memory.restore_memory(proc["start"], proc["end"])
 
     def _create_pcb(self, command, size):
-        """Determine process information using first fit contiguous memory, if possible."""
+        """
+        Create the PCB for a new process if possible.
+        """
         if(size == 0):
-            print("Can't have a process of size 0.")
+            print("Can't have a process of size 0!")
             return None
         start, end = self._memory.find_free(size)
         if start is None:
-            print("Not enough contiguous memory available for this process.")
+            print("Not enough contiguous memory available for this process!")
             return None
         # pcb for newly created process
         proc_type = "RT" if command == "AR" else "Common"

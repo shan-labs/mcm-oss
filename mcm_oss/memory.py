@@ -1,14 +1,17 @@
 """
 Khinshan Khan - memory.py.
+
+This module implements first fit contiguous memory management.
 """
 
 
 class Memory:
-    """First fit contiguous memory management."""
+    """Enclosed memory management"""
     def __init__(self, ram_max):
         self._memory = {ram_max: {"start": [0], "end": [ram_max - 1]}}
 
     def find_free(self, size):
+        """Find a contiguous memory block of at least size and reallocate for it."""
         # get all (if any) contiguous memory blocks with sufficient size
         free_memory_blocks = sorted(filter(lambda num: num >= size, self._memory.keys()))
         if not free_memory_blocks:  # early exit if no contiguous memory blocks are available
@@ -33,6 +36,7 @@ class Memory:
         return (start, end)
 
     def restore_memory(self, start, end):
+        """Restore free memory blocks, recombining free memory blocks as necessary."""
         search_start = start - 1  # the value of start we want to search for, since it'll 'connect'
         search_end = end + 1  # the value of end we want to search for, since it'll 'connect'
         found_start = -1  # if a 'connecting' start is found, store it here

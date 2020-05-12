@@ -28,7 +28,6 @@ The way this cli utility handles signals:
     EOF     -  ^D  -  Ctrl+d  -  exits program
     ''')
     ram_size, disks_max = cli.initialize()
-    # TODO: add more initialization settings
     print("Initialized simulation. You may now begin interacting with it.")
     with oss.OSS(ram_size, disks_max) as OSS:
         while True:

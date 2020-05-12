@@ -9,7 +9,7 @@ A simple and basic operating system simulation.
 - [[#install][Install]]
 - [[#run][Run]]
   - [[#interactively][Interactively]]
-  - [[#tests][Tests]]
+- [[#development][Development]]
 - [[#license][License]]
 
 * Prelude
@@ -17,8 +17,8 @@ A simple and basic operating system simulation.
   The name's origin is quite simple. I chose =create a new repository= and GitHub
   suggested =minature-computing-machine=, which sounded good for this project.
   However, I wanted to include "operating system simulation" in the title and it
-  got unwieldy. Hence:
-  *m* inature *c* omputing *m* achine *o* perating *s* ystem *s* imulation => mcm-oss.
+  got unwieldy. Hence: *m* inature *c* omputing *m* achine *o* perating *s* ystem *s*
+  imulation => mcm-oss.
 
   This was originally meant to be a small college project. I had the choice of
   languages like C++, C, Java, etcetera. I chose Python because I hadn't written
@@ -28,15 +28,31 @@ A simple and basic operating system simulation.
 
 * Install
 
-  WIP :shipit:
+  Used only built in and standard libraries (as well as relative modules). One
+  shouldn't need to install any of the modules manually if they have python
+  installed, but if anything, look into: collections, itertools, sys.
+
+  Note: it depends on Python 3.6+ per lab machine specifications.
 
 * Run
 
-  WIP :shipit:
-
 ** Interactively
 
-** Tests
+  To run interactively:
+  #+begin_src bash
+make run
+  #+end_src
+
+* Development
+
+  This project currently conforms to flake8 and uses mypy as the typing
+  system. It also uses pytest for unit tests.
+
+  It's recommended to use a virtual environment to sandbox the module. =pyenv= is
+  nice to use.
+
+  One can install the necessary dependencies from the =requirements.txt= using =pip
+  install -r requirements.txt=.
 
 * License
 
