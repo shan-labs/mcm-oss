@@ -1,0 +1,21 @@
+1000
+3
+S r
+A 100
+AR 150
+S r
+A 100
+S r
+d 0
+S r
+S i
+d 0
+S r
+S i
+A 100
+d 0
+D 0
+S r
+S i
+d 0
+S i

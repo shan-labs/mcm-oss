@@ -10,6 +10,7 @@ A simple and basic operating system simulation.
 - [[#run][Run]]
   - [[#interactively][Interactively]]
 - [[#development][Development]]
+- [[#testing][Testing]]
 - [[#license][License]]
 
 * Prelude
@@ -36,12 +37,18 @@ A simple and basic operating system simulation.
 
 * Run
 
+  Use =make= or =make help= to see a list of all make commands. Those should be all you need.
+
 ** Interactively
 
-  To run interactively:
-  #+begin_src bash
+   To run interactively:
+   #+begin_src bash
 make run
-  #+end_src
+   #+end_src
+   or
+   #+begin_src bash
+python -m mcm_oss
+   #+end_src
 
 * Development
 
@@ -53,6 +60,18 @@ make run
 
   One can install the necessary dependencies from the =requirements.txt= using =pip
   install -r requirements.txt=.
+
+* Testing
+
+  To run unit test suit in =test/= directory:
+  #+begin_src bash
+pytest
+  #+end_src
+
+  To run prewritten scripts in the =scripts/= directory ( a file such as =scripts/[x].txt=):
+  #+begin_src bash
+make script TEST_FILE=x
+  #+end_src
 
 * License
 

@@ -1,0 +1,16 @@
+1000
+2
+AR 100
+AR 100
+A 100
+A 100
+S r
+Q
+S r
+Q
+S r
+t
+t
+S r
+Q
+S r

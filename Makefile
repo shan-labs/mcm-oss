@@ -1,6 +1,7 @@
+TEST_FILE?="1"
 PYTHON       = python3
 
-.PHONY: default help all run test test-pytest lint-mypy lint-flake8 clean
+.PHONY: default help all run test test-pytest lint-mypy lint-flake8 script clean
 
 default: help
 
@@ -29,6 +30,9 @@ lint-mypy:
 
 lint-flake8:
 	@flake8 mcm_oss
+
+script:
+	@cat script_tests/${TEST_FILE}.txt | python -m mcm_oss
 
 clean:
 # @find . -name "*cache*" -print
