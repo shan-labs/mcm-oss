@@ -26,7 +26,7 @@ class OSS:
 
     def process(self, command, size):
         proc = self._create_pcb(command, int(size))
-        if (proc == None): # short circuit if bad size
+        if proc is None:  # short circuit if bad size
             return
         if(command == 'AR'):
             self._rt_ready_queue.append(proc)
@@ -91,7 +91,7 @@ class OSS:
             print("Can't have a process of size 0.")
             return None
         start, end = self._memory.find_free(size)
-        if start == None:
+        if start is None:
             print("Not enough contiguous memory available for this process.")
             return None
         # pcb for newly created process

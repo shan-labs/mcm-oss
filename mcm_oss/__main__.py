@@ -37,13 +37,13 @@ The way this cli utility handles signals:
                 print(f'mcm-oss: {arguments}: command not found')
             else:
                 context = command[0].lower()
-                if(context == 'a'): # either 'A' or 'AR'
+                if(context == 'a'):  # either 'A' or 'AR'
                     OSS.process(command, arguments)
-                elif(context == 'd'): # either 'd' or 'D'
+                elif(context == 'd'):  # either 'd' or 'D'
                     OSS.hard_disk(command, arguments)
-                elif(context == 's'): # either S 'r', S 'i', S 'm'
+                elif(context == 's'):  # either S 'r', S 'i', S 'm'
                     OSS.show(arguments)
-                else: # exhaustive, can only be 'Q' or 't'
+                else:  # exhaustive, can only be 'Q' or 't'
                     OSS.time(command)
 
 

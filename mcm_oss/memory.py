@@ -12,7 +12,7 @@ class Memory:
         # first fit algorithm for memory
         # get all (if any) contiguous memory blocks with sufficient size
         free_memory_blocks = sorted(filter(lambda num: num >= size, self._memory.keys()))
-        if(len(free_memory_blocks) < 1): # early exit if no contiguous memory blocks are available
+        if(len(free_memory_blocks) < 1):  # early exit if no contiguous memory blocks are available
             return (None, None)
         # pick the first possible 'bucket' per first fit approach
         free_memory_key = free_memory_blocks[0]

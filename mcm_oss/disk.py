@@ -4,6 +4,7 @@ Khinshan Khan - disk.py.
 from collections import deque
 import itertools
 
+
 class Disk:
     """TODO"""
     def __init__(self, disks_max):
